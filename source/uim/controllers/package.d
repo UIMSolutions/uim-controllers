@@ -1,9 +1,18 @@
 module uim.controllers;
 
-public { // required uim libraries
+mixin(ImportPhobos!());
+
+// Dub
+public {
+	import vibe.d;
+  import vibe.http.session : HttpSession = Session;
+}
+
+public { // uim libraries
   import uim.core;
   import uim.oop;
 }
+
 
 public { // controllers packages
   import uim.controllers.classes;

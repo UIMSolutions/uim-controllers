@@ -1,1 +1,1 @@
-# Package 📦 uim.myname
+# Package 📦 uim.controllers
