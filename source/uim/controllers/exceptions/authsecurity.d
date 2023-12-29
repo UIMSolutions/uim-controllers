@@ -6,6 +6,12 @@ import uim.controllers;
 
 // Auth Security exception - used when SecurityComponent detects any issue with the current request
 class AuthSecurityException : SecurityException {
+  mixin(ExceptionThis!("SecurityException"));
+  
+  override void initialize(Json configSettings = Json(null)) {
+    super.initialize(configSettings);
+
     // Security Exception type
-    protected string _type = "auth";
+    _type = "auth";
+  }
 }

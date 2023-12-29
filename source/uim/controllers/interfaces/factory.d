@@ -1,4 +1,4 @@
-module uim.collections.interfaces.factory;
+module uim.controllers.interfaces.factory;
 
 import uim.controllers;
 

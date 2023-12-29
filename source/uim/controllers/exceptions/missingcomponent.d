@@ -5,10 +5,10 @@ import uim.controllers;
 @safe:
 
 // Used when a component cannot be found.
-class MissingComponentException : DException {
+class MissingComponentException : ControllerException {
   mixin(ExceptionThis!("MissingComponentException"));
 
-  void initialize(Json configSettings = Json(null)) {
+  override void initialize(Json configSettings = Json(null)) {
     super.initialize(configSettings);
 
     messageTemplate("default", "Component class `%s` could not be found.");

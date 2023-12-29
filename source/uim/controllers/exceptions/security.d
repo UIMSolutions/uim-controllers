@@ -5,18 +5,20 @@ import uim.controllers;
 @safe:
 
 // Security exception - used when SecurityComponent detects any issue with the current request
-class SecurityException : BadRequestException {
+class SecurityException : ControllerException {
   mixin(ExceptionThis!("SecurityException"));
 
-  void initialize(Json configSettings = Json(null)) {
+  override void initialize(Json configSettings = Json(null)) {
     super.initialize(configSettings);
+
+   _type = "secure";  
   }
 
   // Reason for request blackhole
   mixin(TProperty!("string", "reason"));
 
   // Security Exception type
-  protected string _type = "secure";  
+  protected string _type;  
   @property string type() {
     return _type;
   }
