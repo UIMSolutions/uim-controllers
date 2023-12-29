@@ -8,5 +8,4 @@ import uim.controllers;
  * Provides basic functionality, such as rendering views inside layouts, automatic model availability, redirection, callbacks, and more.
 */
  interface IController {
-    
  }
