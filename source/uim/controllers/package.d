@@ -16,6 +16,7 @@ public { // uim libraries
 
 public { // controllers packages
   import uim.controllers.classes;
+  import uim.controllers.exceptions;
   import uim.controllers.interfaces;
   import uim.controllers.helpers;
   import uim.controllers.mixins;
