@@ -1,28 +1,27 @@
 {
-	"name": "uim-myname",
-	"description": "D library myname",
+	"name": "uim-controllers",
+	"description": "D library controllers",
 	"authors": [
 		"Sicherheitsschmiede",
 		"Ozan Nurettin Süel"
 	],
-	"copyright": "Copyright © 2015-2023, Ozan Nurettin Süel",	
+	"copyright": "Copyright © 2015-2023, Ozan Nurettin Süel",
 	"license": "Apache-2.0",
+	"targetType": "library",
 	"configurations": [
 		{
 			"name": "offline",
-			"targetType": "library"
 		},
 		{
 			"name": "test",
-			"targetType": "library",
 			"versions": [
-				"test_uim_myname"
+				"test_uim_controllers"
 			]
 		}
 	],
 	"dependencies": {
-		"colored": "~>0.0.23",
-		"vibe-d": "~>0.9.5"
+		"colored": "~>0.0.31",
+		"vibe-d": "~>0.9.7"
 	},
 	"importPaths": [
 		"../../LIBS/uim-core",
@@ -33,6 +32,5 @@
 		"../../LIBS/uim-core",
 		"../../LIBS/uim-oop",
 		"./"
-	],
-	"targetType": "library"
+	]
 }
