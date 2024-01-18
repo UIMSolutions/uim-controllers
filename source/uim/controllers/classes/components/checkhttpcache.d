@@ -1,4 +1,4 @@
-module uim.cake.controllerss.components.checkhttpcache;
+module source.uim.controllers.classes.components.checkhttpcache;
 
 import uim.cake;
 

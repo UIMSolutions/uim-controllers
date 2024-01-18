@@ -1,4 +1,4 @@
-module uim.cake.controllers;
+module source.uim.controllers.classes.factory;
 
 import uim.cake;
 
