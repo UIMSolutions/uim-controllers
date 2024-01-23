@@ -1,4 +1,4 @@
-module source.uim.controllers.classes.factory;
+module uim.controllers.classes.factory;
 
 import uim.cake;
 
@@ -15,13 +15,8 @@ class ControllerFactory : IControllerFactory, IRequestHandler {
 
     protected Controller $controller;
 
-    /**
-     * Constructor
-     * Params:
-     * \UIM\Core\IContainer $container The container to build controllers with.
-     */
-    this(IContainer $container) {
-        this.container = $container;
+    this(IContainer container) {
+        this.container = container;
     }
     
     /**
@@ -31,7 +26,7 @@ class ControllerFactory : IControllerFactory, IRequestHandler {
      */
     Controller create(IServerRequest serverRequest) {
         assert(cast(ServerRequest)$request);
-        auto  className = this.getControllerClass($request);
+        auto className = this.getControllerClass($request);
         if (className.isNull) {
             throw this.missingController($request);
         }

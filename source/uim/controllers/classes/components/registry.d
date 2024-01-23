@@ -1,4 +1,4 @@
-module source.uim.controllers.classes.components.registry;
+module uim.controllers.classes.components.registry;
 
 import uim.cake;
 

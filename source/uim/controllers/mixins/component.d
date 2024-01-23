@@ -1,2 +1,2 @@
-module source.uim.controllers.mixins.component;
+module uim.controllers.mixins.component;
 

@@ -1,4 +1,4 @@
-module source.uim.controllers.classes.error;
+module uim.controllers.classes.error;
 
 import uim.cake;
 

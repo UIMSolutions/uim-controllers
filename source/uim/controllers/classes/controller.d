@@ -1,4 +1,4 @@
-module source.uim.controllers.classes.controllers.controller;
+module uim.controllers.classes.controllers.controller;
 
 import uim.cake;
 
