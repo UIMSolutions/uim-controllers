@@ -208,7 +208,7 @@ class Controller : IEventListener, IEventDispatcher {
      * string aName The name of the component to load.
      * configData - The config for the component.
      */
-    Component loadComponent(string componentName, Json[string] configData = null) {
+    Component loadComponent(string componentName, IData[string] configData = null) {
         return this.components().load(componentName, configData);
     }
     

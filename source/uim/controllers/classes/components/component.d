@@ -69,7 +69,7 @@ class Component : IEventListener {
      * this component can use to lazy load its components.
      * configData = Array of configuration settings.
      */
-    this(ComponentRegistry $registry, Json[string] configData = null) {
+    this(ComponentRegistry $registry, IData[string] configData = null) {
        _registry = $registry;
 
         this.setConfig(configData);

@@ -71,7 +71,7 @@ class ComponentRegistry : ObjectRegistry, IEventDispatcher {
      * @param string aalias The alias of the component.
      * configData - An array of config to use for the component.
      */
-    protected Component _create(object|string className, string aalias, Json[string] configData = null) {
+    protected Component _create(object|string className, string aalias, IData[string] configData = null) {
         if (isObject(className)) {
             return className;
         }
