@@ -57,7 +57,7 @@ class Component : IEventListener {
      *
      * These are merged with user-provided config when the component is used.
      */
-    protected Json[string] _defaultConfigData;
+    protected IData[string] _defaultConfigData;
 
     // Loaded component instances.
     protected Component[string] $componentInstances = [];
@@ -93,7 +93,7 @@ class Component : IEventListener {
      *
      * configData = The configuration settings provided to this component.
      */
-       bool initialize(Json[string] initData = null) {
+       bool initialize(IData[string] initData = null) {
        _defaultConfig = Json .emptyObject;
     }
     
@@ -129,7 +129,7 @@ class Component : IEventListener {
      * Override this method if you need to add non-conventional event listeners.
      * Or if you want components to listen to non-standard events.
      */
-    Json[string] implementedEvents() {
+    IData[string] implementedEvents() {
         auto eventMap = [
             "Controller.initialize": "beforeFilter",
             "Controller.startup": "startup",
@@ -138,7 +138,7 @@ class Component : IEventListener {
             "Controller.shutdown": "afterFilter",
         ];
 
-        Json[string] myEvents;
+        IData[string] myEvents;
         eventMap.byKeyValue
             .filter!(kv => method_exists(this, kv.value))
             .each!(eventMethod => myEvents[eventMethod.key] = eventMethod.value);
@@ -147,7 +147,7 @@ class Component : IEventListener {
     }
     
     // Returns an array that can be used to describe the internal state of this object.
-    Json[string] debugInfo() {
+    IData[string] debugInfo() {
         return [
             "components": this.components,
             "implementedEvents": this.implementedEvents(),

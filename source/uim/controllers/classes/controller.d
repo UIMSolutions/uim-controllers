@@ -95,7 +95,7 @@ class Controller : IEventListener, IEventDispatcher {
      *
      * @see \UIM\Datasource\Paging\NumericPaginator
      */
-    protected Json[string] $paginate = [];
+    protected IData[string] $paginate = [];
 
     // Set to true to automatically render the view after action logic.
     protected bool $autoRender = true;
@@ -185,7 +185,7 @@ class Controller : IEventListener, IEventDispatcher {
     }
     
     // Initialization hook method.
-    bool initialize(Json[string] initData = null) {
+    bool initialize(IData[string] initData = null) {
     }
     
     // Get the component registry for this controller.
@@ -228,7 +228,7 @@ class Controller : IEventListener, IEventDispatcher {
             /** @var \UIM\Controller\Component */
             return this.components().get(propertyName);
         }
-        /** @var array<int, Json[string]> $trace */
+        /** @var array<int, IData[string]> $trace */
         $trace = debug_backtrace();
         someParts = split("\\", class);
         trigger_error(
@@ -304,17 +304,17 @@ class Controller : IEventListener, IEventDispatcher {
      * Register middleware for the controller.
      * Params:
      * \Psr\Http\Server\IMiddleware|\Closure|string amiddleware Middleware.
-     * @param Json[string] $options Valid options:
+     * @param IData[string] $options Valid options:
      * - `only`: (string[]) Only run the middleware for specified actions.
      * - `except`: (string[]) Run the middleware for all actions except the specified ones.
      */
-    void middleware(IMiddleware amiddleware, Json[string] options = null) {
+    void middleware(IMiddleware amiddleware, IData[string] options = null) {
         // TODO
     }
-    void middleware(Closure amiddleware, Json[string] options = null) {
+    void middleware(Closure amiddleware, IData[string] options = null) {
         // TODO
     }
-    void middleware(string amiddleware, Json[string] options = null) {
+    void middleware(string amiddleware, IData[string] options = null) {
         this.middlewares ~= [
             "middleware": $middleware,
             "options": $options,
@@ -349,7 +349,7 @@ class Controller : IEventListener, IEventDispatcher {
      * Returns a list of all events that will fire in the controller during its lifecycle.
      * You can override this auto to add your own listener callbacks
      */
-    Json[string] implementedEvents() {
+    IData[string] implementedEvents() {
         return [
             "Controller.initialize": "beforeFilter",
             "Controller.beforeRender": "beforeRender",
@@ -584,7 +584,7 @@ class Controller : IEventListener, IEventDispatcher {
      */
     IPaginated paginate(
         IRepository|IQuery|string|null $object = null,
-        Json[string] settingsForPagination = null
+        IData[string] settingsForPagination = null
     ) {
         if (!isObject($object)) {
             $object = this.fetchTable($object);

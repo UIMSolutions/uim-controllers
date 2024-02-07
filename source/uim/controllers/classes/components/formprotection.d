@@ -34,7 +34,7 @@ class FormProtectionComponent : Component {
      *  failure. Must be a valid Closure. Unset by default in which case
      *  exception is thrown on validation failure.
      */
-    protected Json[string] _defaultConfigData = [
+    protected IData[string] _defaultConfigData = [
         "validate": true,
         "unlockedFields": [],
         "unlockedActions": [],
@@ -96,7 +96,7 @@ class FormProtectionComponent : Component {
     }
 
     // Events supported by this component.
-    Json[string] implementedEvents() {
+    IData[string] implementedEvents() {
         return [
             "Controller.startup": "startup",
         ];

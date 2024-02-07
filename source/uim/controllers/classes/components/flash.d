@@ -9,14 +9,14 @@ import uim.cake;
  * to the session from your controllers, to be rendered in a view with the
  * FlashHelper.
  *
- * @method void success(string amessage, Json[string] options = null) Set a message using "success" element
- * @method void info(string amessage, Json[string] options = null) Set a message using "info" element
- * @method void warning(string amessage, Json[string] options = null) Set a message using "warning" element
- * @method void error(string amessage, Json[string] options = null) Set a message using "error" element
+ * @method void success(string amessage, IData[string] options = null) Set a message using "success" element
+ * @method void info(string amessage, IData[string] options = null) Set a message using "info" element
+ * @method void warning(string amessage, IData[string] options = null) Set a message using "warning" element
+ * @method void error(string amessage, IData[string] options = null) Set a message using "error" element
  */
 class FlashComponent : Component {
     // Default configuration
-    protected Json[string] _defaultConfigData = [
+    protected IData[string] _defaultConfigData = [
         "key": "flash",
         "element": "default",
         "params": [],
@@ -42,9 +42,9 @@ class FlashComponent : Component {
      * \Throwable|string amessage Message to be flashed. If an instance
      *  of \Throwable the throwable message will be used and code will be set
      *  in params.
-     * @param Json[string] $options An array of options
+     * @param IData[string] $options An array of options
      */
-    void set(Throwable|string amessage, Json[string] options = null) {
+    void set(Throwable|string amessage, IData[string] options = null) {
         if (cast(Throwable)aMessage) {
             this.flash().setExceptionMessage($message, $options);
         } else {
@@ -60,7 +60,7 @@ class FlashComponent : Component {
     /**
      * Proxy method to FlashMessage instance.
      * Params:
-     * Json[string]|string aKey The key to set, or a complete array of configs.
+     * IData[string]|string aKey The key to set, or a complete array of configs.
      * @param Json aValue The value to set.
      * @param bool $merge Whether to recursively merge or overwrite existing config, defaults to true.
 
@@ -88,7 +88,7 @@ class FlashComponent : Component {
     
     //  Proxy method to FlashMessage instance.
      * Params:
-     * Json[string]|string aKey The key to set, or a complete array of configs.
+     * IData[string]|string aKey The key to set, or a complete array of configs.
      * @param Json aValue The value to set.
      */
     void configShallow(string[] aKey, Json aValue = null) {

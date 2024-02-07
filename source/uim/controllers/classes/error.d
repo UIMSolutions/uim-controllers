@@ -16,7 +16,7 @@ class ErrorController : Controller {
     }
     
     // Initialization hook method.
-    bool initialize(Json[string] initData = null) {
+    bool initialize(IData[string] initData = null) {
         super.initialize(initData);
     }
 
