@@ -1,6 +1,6 @@
 module uim.controllers.classes.error;
 
-import uim.cake;
+import uim.controllers;
 
 @safe:
 

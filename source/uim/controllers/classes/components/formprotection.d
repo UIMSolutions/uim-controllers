@@ -1,6 +1,6 @@
 module uim.cake.controllerss.components.formprotection;
 
-import uim.cake;
+import uim.controllers;
 
 @safe:
 
