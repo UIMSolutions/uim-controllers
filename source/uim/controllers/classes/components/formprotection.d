@@ -83,7 +83,7 @@ class FormProtectionComponent : Component {
             "nlockedFields": _config["unlockedFields"],
         ];
         $request = $request.withAttribute("formTokenData", [
-                "unlockedFields": $token["unlockedFields"],
+                "unlockedFields": token["unlockedFields"],
             ]);
 
         if (isArray(someData)) {

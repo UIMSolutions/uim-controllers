@@ -77,7 +77,7 @@ class ControllerFactory : IControllerFactory, IRequestHandler {
         if (result !isNull) {
             return result;
         }
-        $action = $controller.getAction();
+        action = $controller.getAction();
         someArguments = this.getActionArgs(
             $action,
             (array)$controller.getRequest().getParam("pass").values
@@ -94,18 +94,18 @@ class ControllerFactory : IControllerFactory, IRequestHandler {
     /**
      * Get the arguments for the controller action invocation.
      * Params:
-     * \Closure $action Controller action.
+     * \Closure action Controller action.
      * @param array $passedParams Params passed by the router.
      */
     protected array getActionArgs(Closure $action, array $passedParams) {
         $resolved = [];
         $function = new ReflectionFunction($action);
         foreach ($parameter; $function.getParameters()) {
-            $type = $parameter.getType();
+            type = $parameter.getType();
 
             // Check for dependency injection for classes
             if (cast(ReflectionNamedType)$type  && !$type.isBuiltin()) {
-                $typeName = $type.name;
+                typeName = type.name;
                 if (this.container.has($typeName)) {
                     $resolved ~= this.container.get($typeName);
                     continue;
@@ -125,7 +125,7 @@ class ControllerFactory : IControllerFactory, IRequestHandler {
                 throw new InvalidParameterException([
                     "template": "missing_dependency",
                     "parameter": $parameter.name,
-                    "type": $typeName,
+                    "type": typeName,
                     "controller": this.controller.name,
                     "action": this.controller.getRequest().getParam("action"),
                     "prefix": this.controller.getRequest().getParam("prefix"),
@@ -136,13 +136,13 @@ class ControllerFactory : IControllerFactory, IRequestHandler {
             if ($passedParams) {
                 $argument = array_shift($passedParams);
                 if (isString($argument) && cast(ReflectionNamedType)$type  ) {
-                    $typedArgument = this.coerceStringToType($argument, $type);
+                    typedArgument = this.coerceStringToType($argument, type);
 
                     if ($typedArgument.isNull) {
                         throw new InvalidParameterException([
                             "template": 'failed_coercion",
                             "passed": $argument,
-                            "type": $type.name,
+                            "type": type.name,
                             "parameter": $parameter.name,
                             "controller": this.controller.name,
                             "action": this.controller.getRequest().getParam("action"),
@@ -150,9 +150,9 @@ class ControllerFactory : IControllerFactory, IRequestHandler {
                             "plugin": this.controller.getRequest().getParam("plugin"),
                         ]);
                     }
-                    $argument = $typedArgument;
+                    $argument = typedArgument;
                 }
-                $resolved ~= $argument;
+                $resolved ~= argument;
                 continue;
             }
             // Add default value if provided
@@ -180,15 +180,15 @@ class ControllerFactory : IControllerFactory, IRequestHandler {
      * Coerces string argument to primitive type.
      * Params:
      * string aargument Argument to coerce
-     * @param \ReflectionNamedType $type Parameter type
+     * @param \ReflectionNamedType type Parameter type
      */
-    protected string[]|float|int|bool|null coerceStringToType(string aargument, ReflectionNamedType $type) {
+    protected string[]|float|int|bool|null coerceStringToType(string aargument, ReflectionNamedType type) {
         return match ($type.name) {
             "string": $argument,
             "float": isNumeric($argument) ? (float)$argument : null,
             "int": filter_var($argument, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE),
             "bool": $argument == "0" ? false : ($argument == "1" ? true : null),
-            "array": $argument == "" ? [] : split(",", $argument),
+            "array": argument == "" ? [] : split(",", $argument),
             default: null,
         };
     }

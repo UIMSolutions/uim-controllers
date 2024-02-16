@@ -228,15 +228,15 @@ class Controller : IEventListener, IEventDispatcher {
             /** @var \UIM\Controller\Component */
             return this.components().get(propertyName);
         }
-        /** @var array<int, IData[string]> $trace */
-        $trace = debug_backtrace();
+        /** @var array<int, IData[string]> trace */
+        trace = debug_backtrace();
         someParts = split("\\", class);
         trigger_error(
             "Undefined property `%s.$%s` in `%s` on line %s"
                 .format(array_pop(someParts),
                     propertyName,
-                    $trace[0]["file"],
-                    $trace[0]["line"]
+                    trace[0]["file"],
+                    trace[0]["line"]
                 ),
                 E_USER_NOTICE
             );
@@ -264,7 +264,7 @@ class Controller : IEventListener, IEventDispatcher {
     // Get the closure for action to be invoked by ControllerFactory.
     Closure getAction() {
         $request = this.request;
-        $action = $request.getParam("action");
+        action = $request.getParam("action");
 
         if (!this.isAction($action)) {
             throw new MissingActionException([
@@ -280,7 +280,7 @@ class Controller : IEventListener, IEventDispatcher {
     /**
      * Dispatches the controller action.
      * Params:
-     * \Closure $action The action closure.
+     * \Closure action The action closure.
      * @param array someArguments The arguments to be passed when invoking action.
      */
     void invokeAction(Closure $action, array someArguments) {
@@ -428,7 +428,7 @@ class Controller : IEventListener, IEventDispatcher {
     /**
      * Instantiates the correct view class, hands it its data, and uses it to render the view output.
      * Params:
-     * string|null $template Template to use for rendering
+     * string|null template Template to use for rendering
      * @param string|null $layout Layout to use
      * returns A response object containing the rendered view.
      * @link https://book.UIM.org/5/en/controllers.html#rendering-a-view
@@ -504,11 +504,11 @@ class Controller : IEventListener, IEventDispatcher {
             return null;
         }
 
-        auto $typeMap = [];
+        auto typeMap = [];
         foreach (className; $possibleViewClasses) {
             $viewContentType = className.contentType();
             if ($viewContentType && !$typeMap.isSet($viewContentType)) {
-                $typeMap[$viewContentType] = className;
+                typeMap[$viewContentType] = className;
             }
         }
         $request = this.getRequest();
@@ -519,7 +519,7 @@ class Controller : IEventListener, IEventDispatcher {
             auto extTypes = (array)(this.response.getMimeType($ext) ?: []);
             foreach (extType; extTypes) {
                 if ($typeMap.isSet(extTypes)) {
-                    return $typeMap[extType];
+                    return typeMap[extType];
                 }
             }
             throw new NotFoundException("View class for `%s` extension not found".format($ext));
@@ -527,23 +527,23 @@ class Controller : IEventListener, IEventDispatcher {
         // Use accept header based negotiation.
         auto contentType = new ContentTypeNegotiation();
         if(auto preferredType = $contentType.preferredType($request, array_keys($typeMap))) {
-            return $typeMap[$preferredType];
+            return typeMap[$preferredType];
         }
         // Use the match-all view if available or null for no decision.
-        return $typeMap[View.TYPE_MATCH_ALL] ?? null;
+        return typeMap[View.TYPE_MATCH_ALL] ?? null;
     }
 
     // Get the templatePath based on controller name and request prefix.
     protected string _templatePath() {
-        $templatePath = this.name;
+        templatePath = this.name;
         if (this.request.getParam("prefix")) {
             $prefixes = array_map(
                 "UIM\Utility\Inflector.camelize",
                 split("/", this.request.getParam("prefix"))
             );
-            $templatePath = join(DIRECTORY_SEPARATOR, $prefixes) ~ DIRECTORY_SEPARATOR ~ $templatePath;
+            templatePath = join(DIRECTORY_SEPARATOR, $prefixes) ~ DIRECTORY_SEPARATOR ~ templatePath;
         }
-        return $templatePath;
+        return templatePath;
     }
     
     /**
