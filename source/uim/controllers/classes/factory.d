@@ -79,7 +79,7 @@ class ControllerFactory : IControllerFactory, IRequestHandler {
         }
         action = $controller.getAction();
         someArguments = this.getActionArgs(
-            $action,
+            action,
             (array)$controller.getRequest().getParam("pass").values
         );
         $controller.invokeAction($action, someArguments);
@@ -97,7 +97,7 @@ class ControllerFactory : IControllerFactory, IRequestHandler {
      * \Closure action Controller action.
      * @param array $passedParams Params passed by the router.
      */
-    protected array getActionArgs(Closure $action, array $passedParams) {
+    protected array getActionArgs(Closure action, array $passedParams) {
         $resolved = [];
         $function = new ReflectionFunction($action);
         foreach ($parameter; $function.getParameters()) {
@@ -134,14 +134,14 @@ class ControllerFactory : IControllerFactory, IRequestHandler {
             }
             // Use any passed params as positional arguments
             if ($passedParams) {
-                $argument = array_shift($passedParams);
+                argument = array_shift($passedParams);
                 if (isString($argument) && cast(ReflectionNamedType)$type  ) {
                     typedArgument = this.coerceStringToType($argument, type);
 
                     if ($typedArgument.isNull) {
                         throw new InvalidParameterException([
                             "template": 'failed_coercion",
-                            "passed": $argument,
+                            "passed": argument,
                             "type": type.name,
                             "parameter": $parameter.name,
                             "controller": this.controller.name,
@@ -150,7 +150,7 @@ class ControllerFactory : IControllerFactory, IRequestHandler {
                             "plugin": this.controller.getRequest().getParam("plugin"),
                         ]);
                     }
-                    $argument = typedArgument;
+                    argument = typedArgument;
                 }
                 $resolved ~= argument;
                 continue;
@@ -184,11 +184,11 @@ class ControllerFactory : IControllerFactory, IRequestHandler {
      */
     protected string[]|float|int|bool|null coerceStringToType(string aargument, ReflectionNamedType type) {
         return match ($type.name) {
-            "string": $argument,
+            "string": argument,
             "float": isNumeric($argument) ? (float)$argument : null,
             "int": filter_var($argument, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE),
-            "bool": $argument == "0" ? false : ($argument == "1" ? true : null),
-            "array": argument == "" ? [] : split(",", $argument),
+            "bool": argument == "0" ? false : ($argument == "1" ? true : null),
+            "array": argument == "" ? [] : split(",", argument),
             default: null,
         };
     }

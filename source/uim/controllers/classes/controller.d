@@ -98,7 +98,7 @@ class Controller : IEventListener, IEventDispatcher {
     protected IData[string] $paginate = [];
 
     // Set to true to automatically render the view after action logic.
-    protected bool $autoRender = true;
+    protected bool autoRender = true;
 
     /**
      * Instance of ComponentRegistry used to create Components
@@ -283,8 +283,8 @@ class Controller : IEventListener, IEventDispatcher {
      * \Closure action The action closure.
      * @param array someArguments The arguments to be passed when invoking action.
      */
-    void invokeAction(Closure $action, array someArguments) {
-        result = $action(...someArguments);
+    void invokeAction(Closure action, array someArguments) {
+        result = action(...someArguments);
         if (result !isNull) {
             assert(
                 cast(Response)result,
@@ -535,13 +535,13 @@ class Controller : IEventListener, IEventDispatcher {
 
     // Get the templatePath based on controller name and request prefix.
     protected string _templatePath() {
-        templatePath = this.name;
+        string templatePath = this.name;
         if (this.request.getParam("prefix")) {
             $prefixes = array_map(
                 "UIM\Utility\Inflector.camelize",
                 split("/", this.request.getParam("prefix"))
             );
-            templatePath = join(DIRECTORY_SEPARATOR, $prefixes) ~ DIRECTORY_SEPARATOR ~ templatePath;
+            templatePath = $prefixes.join(DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR ~ templatePath;
         }
         return templatePath;
     }
