@@ -20,21 +20,17 @@ class ErrorController : Controller {
         super.initialize(initData);
     }
 
-    /**
-     * beforeRender callback.
-     * Params:
-     * \UIM\Event\IEvent<\UIM\Controller\Controller> anEvent Event.
-     */
+    // beforeRender callback.
     Response beforeRender(IEvent anEvent) {
         auto viewBuilder = this.viewBuilder();
         string templatePath = "Error";
 
         if (
             this.request.getParam("prefix") &&
-            in_array(viewBuilder.getTemplate(), ["error400", "error500"], true)
+            viewBuilder.getTemplate().has(["error400", "error500"])
         ) {
-            someParts = split(DIRECTORY_SEPARATOR, (string)viewBuilder.templatePath, -1);
-            templatePath = join(DIRECTORY_SEPARATOR, someParts) ~ DIRECTORY_SEPARATOR ~ "Error";
+            string parts = split(DIRECTORY_SEPARATOR, (string)viewBuilder.templatePath, -1);
+            templatePath = parts.join(DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR ~ "Error";
         }
 
         viewBuilder.templatePath(templatePath);

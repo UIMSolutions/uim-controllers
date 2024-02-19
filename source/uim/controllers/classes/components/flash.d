@@ -61,13 +61,14 @@ class FlashComponent : Component {
      * Proxy method to FlashMessage instance.
      * Params:
      * IData[string]|string aKey The key to set, or a complete array of configs.
-     * @param Json aValue The value to set.
      * @param bool $merge Whether to recursively merge or overwrite existing config, defaults to true.
 
      * @throws \UIM\Core\Exception\UimException When trying to set a key that is invalid.
      */
-    void setConfig(string[] aKey, Json aValue = null, bool $merge = true) {
-        this.flash().setConfig(aKey, aValue, $merge);
+    void setConfig(string[] aKey, Json valueToSet = null, bool $merge = true) {
+    }
+    void setConfig(string[] aKey, Json valueToSet = null, bool $merge = true) {
+        this.flash().setConfig(aKey, valueToSet, $merge);
     }
     
     /**
