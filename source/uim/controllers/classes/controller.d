@@ -526,7 +526,7 @@ class Controller : IEventListener, IEventDispatcher {
         }
         // Use accept header based negotiation.
         auto contentType = new ContentTypeNegotiation();
-        if(auto preferredType = $contentType.preferredType($request, array_keys($typeMap))) {
+        if(auto preferredType = $contentType.preferredType($request, $typeMap.keys)) {
             return typeMap[$preferredType];
         }
         // Use the match-all view if available or null for no decision.
