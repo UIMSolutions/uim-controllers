@@ -42,13 +42,13 @@ class FlashComponent : Component {
      * \Throwable|string amessage Message to be flashed. If an instance
      *  of \Throwable the throwable message will be used and code will be set
      *  in params.
-     * @param IData[string] $options An array of options
+     * @param IData[string] options An array of options
      */
     void set(Throwable|string amessage, IData[string] options = null) {
         if (cast(Throwable)aMessage) {
-            this.flash().setExceptionMessage($message, $options);
+            this.flash().setExceptionMessage($message, options);
         } else {
-            this.flash().set($message, $options);
+            this.flash().set($message, options);
         }
     }
     
@@ -123,15 +123,15 @@ class FlashComponent : Component {
         if (count(someArguments) == 0) {
             throw new InternalErrorException("Flash message missing.");
         }
-        auto $options = ["element": anElement];
+        auto options = ["element": anElement];
 
         if (!someArguments[1].isEmpty) {
             if (!empty(someArguments[1]["plugin"])) {
-                $options = ["element": someArguments[1]["plugin"] ~ "." ~ anElement];
+                options = ["element": someArguments[1]["plugin"] ~ "." ~ anElement];
                 someArguments[1].remove("plugin");
             }
-            $options += (array)someArguments[1];
+            options += (array)someArguments[1];
         }
-        this.set(someArguments[0], $options);
+        this.set(someArguments[0], options);
     }
 }

@@ -148,7 +148,7 @@ class Controller : IEventListener, IEventDispatcher {
      * Params:
      * \UIM\Http\ServerRequest serverRequest Request object for this controller.
      *  but expect that features that use the request parameters will not work.
-     * @param string|null $name Override the name useful in testing when using mocks.
+     * @param string|null name Override the name useful in testing when using mocks.
      * @param \UIM\Event\IEventManager|null $eventManager The event manager. Defaults to a new instance.
      */
     this(
@@ -165,8 +165,8 @@ class Controller : IEventListener, IEventDispatcher {
             }
         }
         if (!isSet(this.name)) {
-            [, $name] = namespaceSplit(class);
-            this.name = substr($name, 0, -10);
+            [, name] = namespaceSplit(class);
+            this.name = substr(name, 0, -10);
         }
         this.setRequest($request);
         this.response = new Response();
@@ -304,7 +304,7 @@ class Controller : IEventListener, IEventDispatcher {
      * Register middleware for the controller.
      * Params:
      * \Psr\Http\Server\IMiddleware|\Closure|string amiddleware Middleware.
-     * @param IData[string] $options Valid options:
+     * @param IData[string] options Valid options:
      * - `only`: (string[]) Only run the middleware for specified actions.
      * - `except`: (string[]) Run the middleware for all actions except the specified ones.
      */
@@ -317,7 +317,7 @@ class Controller : IEventListener, IEventDispatcher {
     void middleware(string amiddleware, IData[string] options = null) {
         this.middlewares ~= [
             "middleware": $middleware,
-            "options": $options,
+            "options": options,
         ];
     }
 
@@ -327,16 +327,16 @@ class Controller : IEventListener, IEventDispatcher {
         auto requestAction = this.request.getParam("action");
 
         foreach (this.middlewares as $middleware) {
-            $options = $middleware["options"];
-            if (!$options["only"].isEmpty) {
-                if (in_array(requestAction, (array)$options["only"], true)) {
+            options = $middleware["options"];
+            if (!options["only"].isEmpty) {
+                if (in_array(requestAction, (array)options["only"], true)) {
                     $matching ~= $middleware["middleware"];
                 }
                 continue;
             }
             if (
-                !empty($options["except"]) &&
-                in_array(requestAction, (array)$options["except"], true)
+                !empty(options["except"]) &&
+                in_array(requestAction, (array)options["except"], true)
             ) {
                 continue;
             }

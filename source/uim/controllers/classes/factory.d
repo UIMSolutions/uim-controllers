@@ -200,14 +200,14 @@ class ControllerFactory : IControllerFactory, IRequestHandler {
      */
     string getControllerClass(ServerRequest serverRequest) {
         $pluginPath = "";
-        $namespace = "Controller";
+        namespace = "Controller";
         $controller = $request.getParam("controller", "");
         if ($request.getParam("plugin")) {
             $pluginPath = $request.getParam("plugin") ~ ".";
         }
         if ($request.getParam("prefix")) {
             $prefix = $request.getParam("prefix");
-            $namespace ~= "/" ~ $prefix;
+            namespace ~= "/" ~ $prefix;
         }
         $firstChar = substr($controller, 0, 1);
 
@@ -223,7 +223,7 @@ class ControllerFactory : IControllerFactory, IRequestHandler {
             throw this.missingController($request);
         }
         /** @var class-string<\UIM\Controller\Controller>|null */
-        return App.className($pluginPath ~ $controller, $namespace, "Controller");
+        return App.className($pluginPath ~ $controller, namespace, "Controller");
     }
     
     /**
